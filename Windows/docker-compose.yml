@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  mongo:
+    image: mongodb-shell
+    build: 
+      context: .
+      args:
+        mongo_image_tag: 6.0.5-windowsservercore-1809
+    command: mongod --replSet rs0 --bind_ip_all
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: mongosh --eval rs.initiate()
+      interval: 10s
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
+    container_name: mongo27017

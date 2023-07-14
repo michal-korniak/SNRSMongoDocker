@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  mongo:
+    image: mongo:6.0.5
+    ports:
+      - 27017:27017
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
+    container_name: mongo27017
+    volumes:
+      - ./init.js:/docker-entrypoint-initdb.d/init.js
+    command: ["--replSet", "rs0", "--bind_ip_all"]
